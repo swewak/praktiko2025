@@ -134,5 +134,3 @@ with tab4:
     test_pool = Pool(X_test, y_test, cat_features=cat_features)
     y_pred_cat = model.predict(test_pool)
     evaluate_model(y_test,y_pred_cat)
-    confusion_matrix = confusion_matrix(y_test, y_pred_cat)
-    st.write(confusion_matrix)
