@@ -4,7 +4,7 @@ import plotly.express as px
 import shap
 from catboost import CatBoostRegressor, Pool
 import matplotlib.pyplot as plt
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score, confusion_matrix
 from sklearn.model_selection import train_test_split
 
 
@@ -33,7 +33,7 @@ with tab2:
     )
 
     st.plotly_chart(fig, use_container_width=True)
-
+    st.write('Видим общее направление движения цены. Оно линейно и направлено вверх')
     st.subheader("Распределения рейтинга вин")
     fig = px.histogram(
         df,
@@ -127,7 +127,6 @@ with tab4:
         r2 = r2_score(y_true, y_pred)
         st.title(f"MSE: {mse:.4f} MAE: {mae:.4f} R²: {r2:.4f}\n")
 
-
     X = df[features]
     y = df[target]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -135,5 +134,5 @@ with tab4:
     test_pool = Pool(X_test, y_test, cat_features=cat_features)
     y_pred_cat = model.predict(test_pool)
     evaluate_model(y_test,y_pred_cat)
-
-
+    confusion_matrix = confusion_matrix(y_test, y_pred_cat)
+    st.write(confusion_matrix)
