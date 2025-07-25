@@ -5,3 +5,4 @@ shap>=0.44.1
 catboost>=1.2.2
 scikit-learn>=1.3.2
 matplotlib>=3.8.2
+statsmodels>=0.14.1
